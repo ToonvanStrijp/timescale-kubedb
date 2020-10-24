@@ -6,7 +6,7 @@ RUN set -ex \
     && apk add --no-cache --virtual .fetch-deps \
     ca-certificates \
     openssl \
-    libressl-dev \
+    openssl-dev \
     tar \
     && mkdir -p /build/timescaledb \
     && wget -O /timescaledb.tar.gz https://github.com/timescale/timescaledb/archive/$TIMESCALEDB_VERSION.tar.gz \
@@ -23,7 +23,7 @@ RUN set -ex \
     util-linux-dev \
     \
     && cd /build/timescaledb \
-    && ./bootstrap -DREGRESS_CHECKS=OFF \
+    && ./bootstrap -DREGRESS_CHECKS=OFF -DPROJECT_INSTALL_METHOD="docker" \
     && cd build && make install \
     && cd ~ \
     \
